@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "automl-engine"
+version = "0.1.0"
+description = "Reusable AutoML engine for tabular datasets"
+requires-python = ">=3.10"
+
+dependencies = [
+    "pandas",
+    "numpy",
+    "scikit-learn",
+    "xgboost",
+    "matplotlib",
+    "joblib"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
