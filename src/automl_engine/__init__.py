@@ -13,6 +13,12 @@ from .data import (
 
 from .preprocessing import build_preprocessor
 
+from .models import (
+    create_model_pipelines,
+    get_candidate_models,
+    get_parameter_spaces,
+)
+
 __version__ = "0.1.0"
 
 __all__ = [
@@ -25,6 +31,9 @@ __all__ = [
     "detect_feature_types",
     "split_dataset",
     "build_preprocessor"
+    "get_candidate_models",
+    "create_model_pipelines",
+    "get_parameter_spaces",
 ]
 
 
