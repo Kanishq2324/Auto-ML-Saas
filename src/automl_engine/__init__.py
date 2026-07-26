@@ -11,6 +11,8 @@ from .data import (
     split_dataset,
 )
 
+from .preprocessing import build_preprocessor
+
 __version__ = "0.1.0"
 
 __all__ = [
@@ -22,6 +24,7 @@ __all__ = [
     "prepare_target",
     "detect_feature_types",
     "split_dataset",
+    "build_preprocessor"
 ]
 
 
