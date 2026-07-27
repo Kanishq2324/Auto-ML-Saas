@@ -19,6 +19,13 @@ from .models import (
     get_parameter_spaces,
 )
 
+from .tuning import (
+    create_cv_strategy,
+    evaluate_baseline_models,
+    get_scoring_configuration,
+    select_top_models,
+)
+
 __version__ = "0.1.0"
 
 __all__ = [
@@ -34,6 +41,10 @@ __all__ = [
     "get_candidate_models",
     "create_model_pipelines",
     "get_parameter_spaces",
+    "create_cv_strategy",
+    "get_scoring_configuration",
+    "evaluate_baseline_models",
+    "select_top_models",
 ]
 
 
