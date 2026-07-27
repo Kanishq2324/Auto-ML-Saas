@@ -20,10 +20,14 @@ from .models import (
 )
 
 from .tuning import (
+    count_parameter_combinations,
     create_cv_strategy,
     evaluate_baseline_models,
     get_scoring_configuration,
+    get_tuning_budget,
+    select_final_model,
     select_top_models,
+    tune_selected_models,
 )
 
 __version__ = "0.1.0"
@@ -45,6 +49,10 @@ __all__ = [
     "get_scoring_configuration",
     "evaluate_baseline_models",
     "select_top_models",
+    "get_tuning_budget",
+    "count_parameter_combinations",
+    "tune_selected_models",
+    "select_final_model",
 ]
 
 
