@@ -30,6 +30,11 @@ from .tuning import (
     tune_selected_models,
 )
 
+from .evaluation import (
+    EvaluationResult,
+    evaluate_final_model,
+)
+
 __version__ = "0.1.0"
 
 __all__ = [
@@ -53,6 +58,8 @@ __all__ = [
     "count_parameter_combinations",
     "tune_selected_models",
     "select_final_model",
+    "EvaluationResult",
+    "evaluate_final_model",
 ]
 
 
