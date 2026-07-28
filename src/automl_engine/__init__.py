@@ -50,6 +50,15 @@ from .engine import (
     run_automl,
 )
 
+from .prediction import (
+    load_input_schema,
+    predict_csv,
+    predict_dataframe,
+    predict_from_run,
+    prepare_prediction_features,
+)
+
+
 __version__ = "0.1.0"
 
 __all__ = [
@@ -84,6 +93,11 @@ __all__ = [
     "load_model_artifacts",
     "AutoMLRunResult",
     "run_automl",
+    "load_input_schema",
+    "prepare_prediction_features",
+    "predict_dataframe",
+    "predict_from_run",
+    "predict_csv",
 ]
 
 
