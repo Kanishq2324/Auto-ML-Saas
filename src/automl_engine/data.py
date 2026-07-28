@@ -371,12 +371,11 @@ def prepare_target(
 
 
 def detect_feature_types(
-        dataframe: pd.DataFrame,
-        categorical_unique_limit: 15,
-        categorical_ratio_limit: 0.05,
+    dataframe: pd.DataFrame,
+    categorical_unique_limit: int = 15,
+    categorical_ratio_limit: float = 0.05,
 ) -> tuple[list[str], list[str]]:
-
-    """Detect numerical & categorical fetaure columns."""
+    """Detect numerical and categorical feature columns."""
 
     numerical_columns = []
     categorical_columns = []

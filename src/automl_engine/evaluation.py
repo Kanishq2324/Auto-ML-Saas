@@ -153,7 +153,9 @@ def _evaluate_classification_model(
         ignore_index=True
     )
 
-    labels = combined_labels.unique().tolist()
+    labels = sorted(
+        combined_labels.unique().tolist()
+    )
 
     if class_names is not None:
         class_names = list(class_names)

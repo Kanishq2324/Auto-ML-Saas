@@ -45,6 +45,10 @@ from .artifacts import (
     save_run_artifacts,
 )
 
+from .engine import (
+    AutoMLRunResult,
+    run_automl,
+)
 
 __version__ = "0.1.0"
 
@@ -78,6 +82,8 @@ __all__ = [
     "load_joblib_artifact",
     "save_run_artifacts",
     "load_model_artifacts",
+    "AutoMLRunResult",
+    "run_automl",
 ]
 
 
