@@ -1,27 +1,29 @@
-# Jupyter temporary files
-.ipynb_checkpoints/
-
 # Python cache
 __pycache__/
-*.pyc
+*.py[cod]
 
-# Virtual environments and secrets
-.env
+# Virtual environments
 .venv/
 venv/
+env/
 
-# Generated AutoML artifacts
+# Notebook files
+.ipynb_checkpoints/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Generated project data
+data/
+demo_output/
 automl_runs/
-automl_output/
+predictions/
+
+# Serialized models
 *.joblib
 *.pkl
 
-# Local datasets
-data/
-
-# Operating-system files
-Thumbs.db
-.DS_Store
-
-# Generated demonstration data and model runs
-demo_output/
+# IDE configuration
+.vscode/

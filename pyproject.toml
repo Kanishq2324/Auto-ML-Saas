@@ -2,11 +2,35 @@
 requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
+
 [project]
 name = "automl-engine"
 version = "0.1.0"
-description = "Reusable AutoML engine for tabular datasets"
+description = "A reusable AutoML engine for supervised tabular classification and regression"
+readme = "README.md"
 requires-python = ">=3.10"
+license = { file = "LICENSE" }
+
+keywords = [
+    "automl",
+    "machine-learning",
+    "classification",
+    "regression",
+    "scikit-learn",
+    "xgboost",
+]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
 
 dependencies = [
     "pandas",
@@ -14,11 +38,27 @@ dependencies = [
     "scikit-learn",
     "xgboost",
     "matplotlib",
-    "joblib"
+    "joblib",
 ]
+
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "build",
+    "notebook",
+    "ipykernel",
+]
+
+
+[project.urls]
+Repository = "https://github.com/Kanishq2324/Auto-ML-Saas"
+Issues = "https://github.com/Kanishq2324/Auto-ML-Saas/issues"
+
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
