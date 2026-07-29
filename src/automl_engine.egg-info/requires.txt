@@ -4,3 +4,9 @@ scikit-learn
 xgboost
 matplotlib
 joblib
+
+[dev]
+pytest
+build
+notebook
+ipykernel

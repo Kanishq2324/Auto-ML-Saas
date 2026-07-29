@@ -1,11 +1,594 @@
 Metadata-Version: 2.4
 Name: automl-engine
 Version: 0.1.0
-Summary: Reusable AutoML engine for tabular datasets
+Summary: A reusable AutoML engine for supervised tabular classification and regression
+Project-URL: Repository, https://github.com/Kanishq2324/Auto-ML-Saas
+Project-URL: Issues, https://github.com/Kanishq2324/Auto-ML-Saas/issues
+Keywords: automl,machine-learning,classification,regression,scikit-learn,xgboost
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
 Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENCE
 Requires-Dist: pandas
 Requires-Dist: numpy
 Requires-Dist: scikit-learn
 Requires-Dist: xgboost
 Requires-Dist: matplotlib
 Requires-Dist: joblib
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: build; extra == "dev"
+Requires-Dist: notebook; extra == "dev"
+Requires-Dist: ipykernel; extra == "dev"
+Dynamic: license-file
+
+<div align="center">
+
+# AutoML SaaS Engine
+
+### A reusable AutoML pipeline for tabular classification and regression
+
+Automatically inspect datasets, preprocess features, compare models, tune hyperparameters, evaluate performance, and export deployable ML artifacts.
+
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-orange?logo=scikitlearn&logoColor=white)](https://scikit-learn.org/)
+[![XGBoost](https://img.shields.io/badge/XGBoost-Enabled-red)](https://xgboost.readthedocs.io/)
+[![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange?logo=jupyter&logoColor=white)](https://jupyter.org/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+</div>
+
+---
+
+## Overview
+
+**AutoML SaaS Engine** is a reusable machine-learning workflow for tabular datasets.
+
+A user provides:
+
+- A CSV dataset
+- The target column
+- An optional task type
+- A tuning mode
+
+The engine then automatically:
+
+1. Validates and inspects the dataset
+2. Cleans duplicate and invalid records
+3. Detects classification or regression
+4. Identifies numerical and categorical features
+5. Builds a leakage-safe preprocessing pipeline
+6. Compares multiple machine-learning models
+7. Performs cross-validation
+8. Tunes the strongest models
+9. Selects and evaluates the final model
+10. Exports the complete trained pipeline and experiment artifacts
+
+The current implementation is the **machine-learning engine for Phase 1** of a future SaaS platform.
+
+---
+
+## Why This Project?
+
+Building a machine-learning model in a notebook is straightforward.
+
+Building a reusable system that can work with different datasets requires:
+
+- Automated data validation
+- Reusable preprocessing
+- Task-aware model selection
+- Cross-validation
+- Hyperparameter optimization
+- Failure handling
+- Experiment tracking
+- Model serialization
+- Reproducible outputs
+
+This project focuses on those production-oriented ML engineering concepts.
+
+---
+
+## Workflow
+
+```mermaid
+flowchart TD
+    A[Upload CSV] --> B[Validate Dataset]
+    B --> C[Inspect Data Quality]
+    C --> D[Clean Dataset]
+    D --> E[Detect Task Type]
+    E --> F[Detect Feature Types]
+    F --> G[Build Preprocessing Pipeline]
+    G --> H[Train Baseline Models]
+    H --> I[Cross-Validation Leaderboard]
+    I --> J[Select Top Models]
+    J --> K[Hyperparameter Tuning]
+    K --> L[Select Final Model]
+    L --> M[Evaluate on Test Set]
+    M --> N[Export Model and Reports]
+```
+
+---
+
+## Features
+
+### Dataset handling
+
+- CSV validation
+- Empty-dataset detection
+- Duplicate-column detection
+- Duplicate-row removal
+- Missing-target removal
+- Constant-column removal
+- Optional manual column removal
+- Possible identifier-column detection
+- Column-level data-quality reporting
+
+### Automatic ML preparation
+
+- Classification and regression detection
+- Target-label encoding
+- Numerical and categorical feature detection
+- Median imputation for numerical features
+- Most-frequent imputation for categorical features
+- Numerical feature scaling
+- One-hot encoding
+- Unknown-category handling
+
+### Model evaluation
+
+- Reproducible train/test splitting
+- Stratified K-Fold for classification
+- K-Fold for regression
+- Multiple evaluation metrics
+- Model stability measurement
+- Failure-tolerant model evaluation
+- Dummy baselines for comparison
+
+### Hyperparameter optimization
+
+- Automatic selection of top-performing models
+- `RandomizedSearchCV`
+- Fast, balanced, and thorough tuning modes
+- Model-specific search spaces
+- Baseline fallback when tuning fails
+
+### Artifact export
+
+- Complete preprocessing and model pipeline
+- Target encoder
+- Input schema
+- Model metadata
+- Test metrics
+- Baseline leaderboard
+- Tuned leaderboard
+- Classification report
+- Prediction preview
+- Failure logs
+
+---
+
+## Supported Models
+
+### Classification
+
+| Model | Purpose |
+|---|---|
+| Dummy Classifier | Majority-class baseline |
+| Logistic Regression | Linear classification baseline |
+| K-Nearest Neighbors | Distance-based classification |
+| Random Forest | Bagging-based tree ensemble |
+| Extra Trees | Highly randomized tree ensemble |
+| XGBoost | Gradient-boosted decision trees |
+
+### Regression
+
+| Model | Purpose |
+|---|---|
+| Dummy Regressor | Mean-prediction baseline |
+| Ridge Regression | Regularized linear regression |
+| K-Nearest Neighbors | Distance-based regression |
+| Random Forest | Bagging-based tree ensemble |
+| Extra Trees | Highly randomized tree ensemble |
+| XGBoost | Gradient-boosted decision trees |
+
+---
+
+## Evaluation Metrics
+
+### Classification
+
+- Accuracy
+- Balanced accuracy
+- Macro precision
+- Macro recall
+- Macro F1
+- ROC-AUC
+- Per-class classification report
+- Confusion matrix
+
+**Macro F1** is used as the primary classification metric because it gives equal importance to every class.
+
+### Regression
+
+- Mean Absolute Error
+- Root Mean Squared Error
+- R² score
+
+**RMSE** is currently used as the primary regression model-selection metric.
+
+---
+
+## Example Usage
+
+```python
+automl_result = run_automl(
+    csv_path="data/insurance.csv",
+    target_column="charges",
+    task="auto",
+    tuning_mode="fast"
+)
+```
+
+The engine returns:
+
+```python
+{
+    "task_type": ...,
+    "final_model_name": ...,
+    "final_pipeline": ...,
+    "final_cv_score": ...,
+    "final_parameters": ...,
+    "final_evaluation": ...,
+    "baseline_leaderboard": ...,
+    "tuned_leaderboard": ...,
+    "target_encoder": ...,
+    "artifact_paths": ...,
+    "dataset_summary": ...,
+    "cleaning_actions": ...
+}
+```
+
+### Available tuning modes
+
+```python
+tuning_mode="fast"
+```
+
+- Tunes one model
+- Uses fewer search iterations
+- Best for quick testing
+
+```python
+tuning_mode="balanced"
+```
+
+- Tunes the two strongest models
+- Balances training time and performance
+
+```python
+tuning_mode="thorough"
+```
+
+- Tunes more models
+- Uses a larger search budget
+- Requires more computation
+
+---
+
+## Experiment Results
+
+### Lung Cancer Classification
+
+| Metric | Score |
+|---|---:|
+| Selected model | XGBoost |
+| Accuracy | 0.8929 |
+| Balanced accuracy | 0.7292 |
+| Macro F1 | 0.7551 |
+| ROC-AUC | 0.9583 |
+
+The model performed strongly on the majority class but showed weaker recall for the minority class. This experiment demonstrated the importance of class-aware metrics instead of relying only on accuracy.
+
+> This dataset is used only to demonstrate the AutoML workflow. The resulting model is not a medical diagnostic system.
+
+### Insurance Charge Regression
+
+| Metric | Score |
+|---|---:|
+| Selected model | XGBoost |
+| Cross-validation RMSE | 4573.44 |
+| Test MAE | 2501.01 |
+| Test RMSE | 4287.35 |
+| Test R² | 0.90 |
+
+The model explained approximately 90% of the variation in insurance charges. The difference between MAE and RMSE suggests that some observations produced significantly larger errors than average.
+
+---
+
+## Generated Artifacts
+
+Each AutoML execution creates a timestamped directory:
+
+```text
+automl_runs/
+└── insurance_20260722_120000/
+    ├── model_pipeline.joblib
+    ├── target_encoder.joblib
+    ├── input_schema.json
+    ├── metadata.json
+    ├── test_metrics.json
+    ├── column_report.csv
+    ├── baseline_leaderboard.csv
+    ├── tuned_leaderboard.csv
+    ├── classification_report.csv
+    ├── prediction_preview.csv
+    ├── baseline_failures.csv
+    └── tuning_failures.csv
+```
+
+Some files are created only when relevant. For example, regression runs do not require a target encoder or classification report.
+
+### Core deployment files
+
+| File | Purpose |
+|---|---|
+| `model_pipeline.joblib` | Complete preprocessing and trained model |
+| `target_encoder.joblib` | Converts encoded classes back to original labels |
+| `input_schema.json` | Defines expected prediction input |
+| `metadata.json` | Stores model, dataset, and experiment information |
+
+### Evaluation files
+
+| File | Purpose |
+|---|---|
+| `test_metrics.json` | Final held-out test performance |
+| `baseline_leaderboard.csv` | Performance before tuning |
+| `tuned_leaderboard.csv` | Performance after tuning |
+| `classification_report.csv` | Per-class classification performance |
+| `prediction_preview.csv` | Example actual and predicted values |
+
+---
+
+## Project Structure
+
+```text
+Auto-ML-Saas/
+├── notebooks/
+│   └── AutoML.ipynb
+├── data/
+├── automl_runs/
+├── .gitignore
+├── README.md
+└── requirements.txt
+```
+
+The `data/` and `automl_runs/` directories are ignored by Git to avoid publishing datasets and large trained-model files.
+
+---
+
+## Installation
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Kanishq2324/Auto-ML-Saas.git
+cd Auto-ML-Saas
+```
+
+### 2. Create a virtual environment
+
+```bash
+python -m venv .venv
+```
+
+Windows:
+
+```bash
+.venv\Scripts\activate
+```
+
+macOS or Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+### 3. Install dependencies
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+### 4. Start Jupyter Notebook
+
+```bash
+jupyter notebook
+```
+
+Open:
+
+```text
+notebooks/AutoML.ipynb
+```
+
+---
+
+## Requirements
+
+```text
+pandas
+numpy
+scikit-learn
+xgboost
+matplotlib
+joblib
+notebook
+ipykernel
+```
+
+---
+
+## Reproducibility
+
+The project uses:
+
+```python
+RANDOM_STATE = 42
+```
+
+The same random state is shared by:
+
+- Train/test splitting
+- Cross-validation
+- Model initialization
+- Hyperparameter search
+
+For a clean validation run:
+
+```text
+Kernel → Restart Kernel and Run All Cells
+```
+
+---
+
+## Current Limitations
+
+- CSV files only
+- Tabular supervised learning only
+- No time-series handling yet
+- No grouped-data split strategy
+- No automatic leakage detection yet
+- No model-drift monitoring yet
+- No web interface yet
+- Large one-hot encoded datasets may consume significant memory
+- Hyperparameter tuning may be slow on limited hardware
+
+---
+
+## Roadmap
+
+### Phase 1 — AutoML engine
+
+- [x] Dataset validation
+- [x] Automated preprocessing
+- [x] Classification support
+- [x] Regression support
+- [x] Model comparison
+- [x] Cross-validation
+- [x] Hyperparameter tuning
+- [x] Test evaluation
+- [x] Model artifact export
+- [x] Saved-model inference
+
+### Phase 2 — Codebase refactoring
+
+- [ ] Move reusable code into `src/`
+- [ ] Add automated tests
+- [ ] Add structured logging
+- [ ] Add HTML report generation
+- [ ] Add feature-importance reports
+- [ ] Add SHAP explanations
+- [ ] Add optional feature engineering
+- [ ] Add experiment comparison
+
+### Phase 3 — SaaS backend
+
+- [ ] FastAPI backend
+- [ ] CSV upload endpoint
+- [ ] Background training workers
+- [ ] PostgreSQL experiment database
+- [ ] User authentication
+- [ ] Team workspaces
+- [ ] Model versioning
+- [ ] Prediction API keys
+
+### Phase 4 — SaaS frontend
+
+- [ ] Dataset upload interface
+- [ ] Training configuration page
+- [ ] Live job-progress tracking
+- [ ] Model leaderboard dashboard
+- [ ] Evaluation charts
+- [ ] Artifact downloads
+- [ ] Model deployment interface
+
+### Phase 5 — MLOps
+
+- [ ] Prediction logging
+- [ ] Data-drift detection
+- [ ] Model monitoring
+- [ ] Model rollback
+- [ ] Usage quotas
+- [ ] Subscription plans
+- [ ] Cloud deployment
+
+---
+
+## Engineering Concepts Demonstrated
+
+- Reusable Python functions
+- Object serialization
+- Automated data validation
+- Scikit-learn pipelines
+- Column transformers
+- Cross-validation
+- Hyperparameter optimization
+- Classification and regression
+- Imbalanced classification metrics
+- Failure-tolerant training workflows
+- Experiment artifact management
+- Reproducible ML development
+
+---
+
+## Future SaaS Architecture
+
+```mermaid
+flowchart LR
+    U[User] --> F[Frontend]
+    F --> A[FastAPI Backend]
+    A --> D[(PostgreSQL)]
+    A --> Q[Job Queue]
+    Q --> W[ML Training Worker]
+    W --> S[Artifact Storage]
+    W --> D
+    A --> M[Prediction API]
+    M --> S
+```
+
+---
+
+## Disclaimer
+
+This project is currently intended for:
+
+- Learning
+- Experimentation
+- Portfolio demonstration
+- AutoML workflow development
+
+Models generated by this project should not be used for medical, financial, legal, insurance, or other high-impact decisions without proper domain validation, monitoring, security, fairness analysis, and regulatory review.
+
+---
+
+## Author
+
+**Kanishq**
+
+GitHub: [@Kanishq2324](https://github.com/Kanishq2324)
+
+---
+
+<div align="center">
+
+Built as a practical exploration of AutoML, MLOps, and SaaS engineering.
+
+</div>

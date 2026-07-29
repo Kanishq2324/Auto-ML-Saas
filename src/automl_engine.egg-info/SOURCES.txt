@@ -1,3 +1,4 @@
+LICENCE
 README.md
 pyproject.toml
 src/automl_engine/__init__.py
@@ -7,6 +8,7 @@ src/automl_engine/data.py
 src/automl_engine/engine.py
 src/automl_engine/evaluation.py
 src/automl_engine/models.py
+src/automl_engine/prediction.py
 src/automl_engine/preprocessing.py
 src/automl_engine/tuning.py
 src/automl_engine.egg-info/PKG-INFO
@@ -14,6 +16,12 @@ src/automl_engine.egg-info/SOURCES.txt
 src/automl_engine.egg-info/dependency_links.txt
 src/automl_engine.egg-info/requires.txt
 src/automl_engine.egg-info/top_level.txt
+tests/test_artifacts.py
 tests/test_data.py
 tests/test_engine.py
+tests/test_evaluation.py
+tests/test_integration.py
+tests/test_models.py
+tests/test_prediction.py
 tests/test_preprocessing.py
+tests/test_tuning.py
