@@ -22,3 +22,6 @@ data/
 # Operating-system files
 Thumbs.db
 .DS_Store
+
+# Generated demonstration data and model runs
+demo_output/
