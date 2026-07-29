@@ -17,6 +17,13 @@ from .config import MAX_CV_FOLDS, RANDOM_STATE, SUPPORTED_TUNING_MODES
 
 from sklearn.base import clone
 
+from sklearn.metrics import (
+    f1_score,
+    make_scorer,
+    precision_score,
+    recall_score,
+)
+
 
 
 # Cross Validatin Strategy
@@ -103,12 +110,28 @@ def get_scoring_configuration(
 
         scoring = {
             "accuracy": "accuracy",
-            "balanced_accuracy": ("balanced_accuracy"),
-            "precision_macro": (
-                "precision_macro"
+
+            "balanced_accuracy": (
+                "balanced_accuracy"
             ),
-            "recall_macro": "recall_macro",
-            "f1_macro": "f1_macro",
+
+            "precision_macro": make_scorer(
+                precision_score,
+                average="macro",
+                zero_division=0,
+            ),
+
+            "recall_macro": make_scorer(
+                recall_score,
+                average="macro",
+                zero_division=0,
+            ),
+
+            "f1_macro": make_scorer(
+                f1_score,
+                average="macro",
+                zero_division=0,
+            ),
         }
 
         if number_of_classes == 2:

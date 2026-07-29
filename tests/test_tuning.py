@@ -1,5 +1,6 @@
 """Tests for cross-validation and model evaluation utilities."""
 
+import numpy as np
 import pandas as pd
 import pytest
 from sklearn.dummy import DummyClassifier
@@ -26,6 +27,70 @@ from automl_engine.tuning import (
     select_top_models,
     tune_selected_models,
 )
+
+
+def test_classification_scorers_handle_missing_predictions():
+    """Macro scorers should return zero without warnings."""
+
+    configuration = (
+        get_scoring_configuration(
+            task_type="classification",
+            number_of_classes=2,
+        )
+    )
+
+    scoring = configuration["scoring"]
+
+    actual_values = np.array(
+        [0, 0, 1, 1]
+    )
+
+    # The model predicts only class 0.
+    predicted_values = np.array(
+        [0, 0, 0, 0]
+    )
+
+    precision_scorer = scoring[
+        "precision_macro"
+    ]
+
+    recall_scorer = scoring[
+        "recall_macro"
+    ]
+
+    f1_scorer = scoring[
+        "f1_macro"
+    ]
+
+    assert (
+        precision_scorer._score_func(
+            actual_values,
+            predicted_values,
+            average="macro",
+            zero_division=0,
+        )
+        >= 0
+    )
+
+    assert (
+        recall_scorer._score_func(
+            actual_values,
+            predicted_values,
+            average="macro",
+            zero_division=0,
+        )
+        >= 0
+    )
+
+    assert (
+        f1_scorer._score_func(
+            actual_values,
+            predicted_values,
+            average="macro",
+            zero_division=0,
+        )
+        >= 0
+    )
 
 
 

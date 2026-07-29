@@ -208,7 +208,6 @@ def predict_dataframe(
         ] = raw_predictions
 
 
-
     if hasattr(
         model_pipeline,
         "predict_proba",
@@ -248,6 +247,19 @@ def predict_dataframe(
                 for class_name
                 in model_classes
             ]
+
+        # This loop must remain inside the predict_proba block.
+        for class_index, class_name in enumerate(
+            probability_labels
+        ):
+            prediction_output[
+                f"Probability_{class_name}"
+            ] = probabilities[
+                :,
+                class_index,
+            ]
+
+    return prediction_output
 
 
     for class_index, class_name in enumerate(
